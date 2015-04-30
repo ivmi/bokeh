@@ -17,7 +17,7 @@ def call_wrapper(cmd_str, *args, **kw):
         print(cmd_str)
         return 0
     else:
-        return subprocess.call(cmd_str, *args, stdout=subprocess.PIPE, **kw)
+        return subprocess.call(cmd_str, *args, **kw)
 
 
 def get_parser():
@@ -156,6 +156,19 @@ def logger(failure_list):
         for failure in failure_list:
             log.write(failure)
 
+def printer(results_dict):
+    """Print the results of all tests to the console.
+    """
+
+    for env in results_dict:
+        print("-"*10, env, "-"*10)
+        print("\n")
+        print("   %s   %s   %s\n" % (results_dict[env]['install'],
+                                  results_dict[env]['test'],
+                                  results_dict[env].get('version'))
+             )
+        print()
+
 
 if __name__ == '__main__':
 
@@ -238,6 +251,6 @@ if __name__ == '__main__':
             break
 
     if not ops.dry_run:
-        print(results)
+        printer(results)
         if test_failures:
             logger(test_failures)
