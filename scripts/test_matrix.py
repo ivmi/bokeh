@@ -17,7 +17,7 @@ def call_wrapper(cmd_str, *args, **kw):
         print(cmd_str)
         return 0
     else:
-        return subprocess.call(cmd_str, *args, **kw)
+        return subprocess.call(cmd_str, *args, stdout=subprocess.PIPE, **kw)
 
 
 def get_parser():
@@ -25,36 +25,40 @@ def get_parser():
     """
 
     parser = argparse.ArgumentParser(description=textwrap.dedent("""
-                    Creates and runs tests on conda environments for a given
+                    Creates - and runs tests on - conda environments for a given
                     version of bokeh installed using pip and
-                    conda and including python 2.7 and python 3.4.
+                    conda, and including python 2.7 and python 3.4.
 
                     The --previous ('-p') option takes an earlier version of
                     bokeh to test against, and for use
                     in creating environments where bokeh will be updated.
 
-                    The --version (-v) option takes the latest version of bokeh
-                    to test against in enviornments
-                    in which bokeh is updated.
+                    The --version (-v) option takes a later version of bokeh
+                    to test against in environments in which bokeh is updated.
 
                     By default, all envs created will be deleted when the
                     script finishes.  You can elect to keep these environments
                     with the --keep option.
 
-                    Ex: ' python test_matrix.py -v 0.7.1 -p 0.7.0'
+                    To view the commands that the script will run (without
+                    executing them), use the --dry-run option.
+
+                    Ex: 'python test_matrix.py --previous 0.7.0 --version 0.7.1'
                     """), formatter_class=argparse.RawTextHelpFormatter)
 
     parser.add_argument('-p', '--previous', action='store', default=False,
                         help='Previous version of bokeh', required=True)
     parser.add_argument('-v', '--version', action='store', default=False,
-                        help='Version of bokeh to test', required=True)
+                        help='Version of bokeh to test', required=False)
     parser.add_argument('-c', '--channel', action='store', default=False,
-                        help='binstar channel', required=False)
+                        help="""Allows the user to supply a binstar channel
+from which conda will download bokeh.  The main channel is used by default""",
+                        required=False)
     parser.add_argument('--keep', action='store_true', default=False,
                         help="Don't delete conda envs created by this script")
     parser.add_argument('--dry-run', action='store_true', default=False,
                         help="""Display commands that will be run in each environment
-                        without executing them.""")
+without executing them.""")
     # parser.add_argument('')
 
     return parser
@@ -207,21 +211,31 @@ if __name__ == '__main__':
     # miniconda support
     root = subprocess.check_output(['conda', 'info', '--root']).rstrip()
 
+
     for environment in envs:
-        results[environment] = {}
-        cleaner(os.path.join(root, "envs", environment))
-        conda_creator(environment, envs[environment]["init"])
-
-        results[environment]['install'] = bokeh_installer(environment, envs[environment]["install"])
-
-        results[environment]['version'] = version_check(environment, current_version)
-
-        results[environment]['test'], failure = run_tests(environment)
-
-        if not ops.keep:
+        try:
+            results[environment] = {}
             cleaner(os.path.join(root, "envs", environment))
-        if failure:
-            test_failures.append(failure)
+            conda_creator(environment, envs[environment]["init"])
+
+            results[environment]['install'] = bokeh_installer(
+                environment,
+                envs[environment]["install"]
+            )
+
+            if ops.version:
+                results[environment]['version'] = version_check(environment,
+                                                                current_version)
+
+            results[environment]['test'], failure = run_tests(environment)
+
+            if not ops.keep:
+                cleaner(os.path.join(root, "envs", environment))
+            if failure:
+                test_failures.append(failure)
+
+        except (KeyboardInterrupt, EOFError):
+            break
 
     if not ops.dry_run:
         print(results)

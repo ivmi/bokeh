@@ -1,0 +1,153 @@
+discarding /Users/mmari/anaconda/bin from PATH
+prepending /Users/mmari/anaconda/envs/py27_conda_clean/bin to PATH
+E.............................E...................................................................................................EE......................................................................................................................F.........F.F..................................E................./Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/server/blaze/__init__.py:21: UserWarning: could not import multiuser blaze server No module named blaze.  This is fine if you do not intend to use blaze capabilities in the bokeh server
+  warnings.warn(msg)
+...................FFF..E........................E.....
+======================================================================
+ERROR: Failure: ImportError (No module named abstract_rendering.numeric)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/loader.py", line 420, in loadTestsFromName
+    addr.filename, addr.module)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/importer.py", line 47, in importFromPath
+    return self.importFromDir(dir_path, fqname)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/importer.py", line 94, in importFromDir
+    mod = load_module(part_fqname, fh, filename, desc)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/tests/test_ar_downsample.py", line 6, in <module>
+    import abstract_rendering.numeric as numeric
+ImportError: No module named abstract_rendering.numeric
+
+======================================================================
+ERROR: Failure: ImportError (No module named bs4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/loader.py", line 420, in loadTestsFromName
+    addr.filename, addr.module)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/importer.py", line 47, in importFromPath
+    return self.importFromDir(dir_path, fqname)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/importer.py", line 94, in importFromDir
+    mod = load_module(part_fqname, fh, filename, desc)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/tests/test_embed.py", line 5, in <module>
+    import bs4
+ImportError: No module named bs4
+
+======================================================================
+ERROR: test_args (bokeh.tests.test_io.TestOutputNotebook)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/tests/test_io.py", line 76, in test_args
+    io.output_notebook(**kwargs)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/io.py", line 131, in output_notebook
+    load_notebook(resources, verbose, hide_banner)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/util/notebook.py", line 69, in load_notebook
+    publish_display_data({'text/html': html})
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/util/notebook.py", line 84, in publish_display_data
+    import IPython.core.displaypub as displaypub
+ImportError: No module named IPython.core.displaypub
+
+======================================================================
+ERROR: test_noarg (bokeh.tests.test_io.TestOutputNotebook)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/tests/test_io.py", line 71, in test_noarg
+    io.output_notebook()
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/io.py", line 131, in output_notebook
+    load_notebook(resources, verbose, hide_banner)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/util/notebook.py", line 69, in load_notebook
+    publish_display_data({'text/html': html})
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/util/notebook.py", line 84, in publish_display_data
+    import IPython.core.displaypub as displaypub
+ImportError: No module named IPython.core.displaypub
+
+======================================================================
+ERROR: Failure: ImportError (No module named blaze)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/loader.py", line 420, in loadTestsFromName
+    addr.filename, addr.module)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/importer.py", line 47, in importFromPath
+    return self.importFromDir(dir_path, fqname)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/nose/importer.py", line 94, in importFromDir
+    mod = load_module(part_fqname, fh, filename, desc)
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/charts/builder/tests/test_boxplot_builder.py", line 22, in <module>
+    import blaze
+ImportError: No module named blaze
+
+======================================================================
+ERROR: test_basic_subscribe (bokeh.server.tests.wsmanager_test.TestSubscribeWebSocket)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/server/tests/wsmanager_test.py", line 24, in test_basic_subscribe
+    import websocket
+ImportError: No module named websocket
+-------------------- >> begin captured stdout << ---------------------
+Using saved session configuration for http://localhost:5006/
+To override, pass 'load_from_config=False' to Session
+Using saved session configuration for http://localhost:5006/
+To override, pass 'load_from_config=False' to Session
+
+--------------------- >> end captured stdout << ----------------------
+-------------------- >> begin captured logging << --------------------
+root: WARNING: register_blueprint has already been called, why is it being called again
+--------------------- >> end captured logging << ---------------------
+
+======================================================================
+ERROR: test_blaze_data_no_fields (test_data_adapter.TestDataAdapter)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/charts/tests/test_data_adapter.py", line 77, in test_blaze_data_no_fields
+    import blaze
+ImportError: No module named blaze
+
+======================================================================
+FAIL: test_absolute_dev (bokeh.tests.test_resources.TestResources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/tests/test_resources.py", line 148, in test_absolute_dev
+    self.assertTrue(r.js_raw[0].endswith(join('bokehjs', 'build', 'js') + '" });'))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_relative_dev (bokeh.tests.test_resources.TestResources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/tests/test_resources.py", line 128, in test_relative_dev
+    self.assertTrue(r.js_raw[0].endswith(join('bokehjs', 'build', 'js') + '" });'))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_server_dev (bokeh.tests.test_resources.TestResources)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/tests/test_resources.py", line 100, in test_server_dev
+    self.assertTrue(r.js_raw[0].endswith(join('bokehjs', 'build', 'js') + '" });'))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_ar (bokeh.server.tests.remotedata_tests.TestAr)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/server/tests/remotedata_tests.py", line 69, in test_ar
+    assert result.status_code == 200
+AssertionError
+
+======================================================================
+FAIL: test_heatmap_downsample (bokeh.server.tests.remotedata_tests.TestAr)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/server/tests/remotedata_tests.py", line 153, in test_heatmap_downsample
+    assert result.status_code == 200
+AssertionError
+
+======================================================================
+FAIL: test_line1d_downsample (bokeh.server.tests.remotedata_tests.TestAr)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mmari/anaconda/envs/py27_conda_clean/lib/python2.7/site-packages/bokeh/server/tests/remotedata_tests.py", line 108, in test_line1d_downsample
+    assert result.status_code == 200
+AssertionError
+
+----------------------------------------------------------------------
+Ran 370 tests in 4.463s
+
+FAILED (errors=7, failures=6)
