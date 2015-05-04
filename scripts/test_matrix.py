@@ -49,7 +49,7 @@ def get_parser():
     parser.add_argument('-p', '--previous', action='store', default=False,
                         help='Previous version of bokeh', required=True)
     parser.add_argument('-v', '--version', action='store', default=False,
-                        help='Version of bokeh to test', required=False)
+                        help='Version of bokeh to test', required=True)
     parser.add_argument('-c', '--channel', action='store', default=False,
                         help="""Allows the user to supply a binstar channel
 from which conda will download bokeh.  The main channel is used by default""",
@@ -152,6 +152,7 @@ def logger(failure_list):
             logfile[1] = str(int(logfile[1]) + 1)
         logfile = '-'.join(logfile)
 
+    print("All errors have been written to %s.txt" % logfile)
     with open('%s.txt' % logfile, 'w') as log:
         for failure in failure_list:
             log.write(failure)
@@ -163,9 +164,10 @@ def printer(results_dict):
     for env in results_dict:
         print("-"*10, env, "-"*10)
         print("\n")
-        print("   %s   %s   %s\n" % (results_dict[env]['install'],
-                                  results_dict[env]['test'],
-                                  results_dict[env].get('version'))
+        print("* Successfully installed: %s\n* Tests passed: %s\n* Expected version found: %s\n"
+              % (results_dict[env]['install'],
+                results_dict[env]['test'],
+                results_dict[env]['version'])
              )
         print()
 
@@ -184,19 +186,20 @@ if __name__ == '__main__':
 
     envs = {
         "py27_conda_clean"    : {
-            "init"    : "python=2.7 nose mock",
+            "init"    : "python=2.7 nose mock blaze beautiful-soup ipython abstract-rendering scipy",
             "install" : "conda install --yes bokeh"
             },
         "py27_conda_update"   : {
-            "init"    : "python=2.7 nose mock bokeh=%s" % preversion,
+            "init"    : "python=2.7 nose mock blaze beautiful-soup websocket bokeh=%s" % preversion,
             "install" : "conda update --yes bokeh"
             },
         "py27_pip_clean"      : {
-            "init"    : "python=2.7 nose mock pip",
+            "init"    : "python=2.7 nose mock pip blaze beautiful-soup websocket",
             "install" : "pip install bokeh"
             },
         "py27_pip_update"     : {
-            "init"    : "python=2.7 pip nose mock bokeh=%s" % preversion,
+            "init"    : "python=2.7 pip nose mock blaze beautiful-soup ipython abstract-rendering scipy",
+            "test install" : "pip install websocket-client bokeh==%s" % preversion,
             "install" : "pip install --upgrade bokeh"
             },
         "py34_conda_clean"    : {
@@ -231,14 +234,15 @@ if __name__ == '__main__':
             cleaner(os.path.join(root, "envs", environment))
             conda_creator(environment, envs[environment]["init"])
 
+            bokeh_installer(environment, envs[environment]["test install"])
+
             results[environment]['install'] = bokeh_installer(
                 environment,
                 envs[environment]["install"]
             )
 
-            if ops.version:
-                results[environment]['version'] = version_check(environment,
-                                                                current_version)
+            results[environment]['version'] = version_check(environment,
+                                                            current_version)
 
             results[environment]['test'], failure = run_tests(environment)
 
